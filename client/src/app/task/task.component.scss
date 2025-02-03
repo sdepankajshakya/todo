@@ -54,15 +54,15 @@
 }
 
 .subtasks-list {
-  max-width: 20rem;
-  max-height: 15rem;
+  max-width: 25rem;
+  max-height: 20rem;
   overflow: auto;
 }
 
 .card-control {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  gap: 3rem;
 }
 
 // .card-icon {
@@ -123,4 +123,23 @@
   & .mat-checkbox-background, .mat-checkbox-frame {
     border-radius: 70% !important;
   }
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+::ng-deep .mat-card-title {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+::ng-deep .mat-card-header-text {
+  display: flex;
+  justify-content: center;
 }

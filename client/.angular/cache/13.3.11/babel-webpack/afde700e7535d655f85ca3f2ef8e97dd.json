@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: true,\n  apiBaseUrl: 'https://mytodolist.up.railway.app/api'\n};","map":null,"metadata":{},"sourceType":"module"}
