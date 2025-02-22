@@ -1,11 +1,10 @@
 <mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
-    <div class="pin" cdkDragHandle></div>
     <div class="card-control">
         <img class="color-picker-icon" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
         <mat-card-title>
             <div text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
         </mat-card-title>
-        <mat-icon class="delete-task" (click)="onDeleteTask()">cancel</mat-icon>
+        <i class="fas fa-times delete-task font-icon" (click)="onDeleteTask()"></i>
     </div>
     <mat-card-header class="task-header">
         <!-- <mat-card-title>
@@ -27,7 +26,7 @@
                 </div> -->
                 <mat-checkbox class="circular-checkbox" [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
                 <div class="wrap-text start-text pd-0" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
-                <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
+                <i class="fas fa-trash-alt icon-delete font-icon" (click)="onDeleteSubtask(subtask)"></i>
             </div>
         </div>
     </mat-card-content>
@@ -36,7 +35,7 @@
         <mat-label [ngClass]="task.isDark ? 'light-text' : 'dark-text'">Add subtask</mat-label>
         <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()">
         <button matSuffix mat-icon-button aria-label="Add Subtask" (click)="addSubtask()">
-            <mat-icon class="green font-icon">add_circle</mat-icon>
+            <i class="fas fa-circle-plus green font-icon"></i>
         </button>
     </mat-form-field>
 </mat-card>

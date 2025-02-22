@@ -2,7 +2,6 @@
   position: relative;
   padding-top: 10px;
   padding-left: 5px;
-  border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -146,18 +145,6 @@
 
 .task-card {
   box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-}
-
-.pin {
-  cursor: move;
-  position: absolute;
-  z-index: 1;
-  left: 50%; /* Center the pin horizontally */
-  top: -5px; /* Adjust the top position */
-  width: 16px;
-  height: 16px;
-  background: #1565C0;
-  border-radius: 50%;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  font-family: fantasy !important;
 }
 

@@ -3,9 +3,7 @@
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div class="box" cdkDrag>
-                    <!-- <div class="cdk-drag-handle" cdkDragHandle>
-                        <img class="move-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
-                    </div> -->
+                    <div class="pin" cdkDragHandle></div>
                     <app-task [task]="task" [board]="board" (getBoard)="getBoard()"></app-task>
                 </div>
             </div>
@@ -22,7 +20,7 @@
                 <mat-label>Add a task card</mat-label>
                 <input matInput type="text" placeholder="name of task" [(ngModel)]="taskName" (keyup.enter)="addTask()">
                 <button matSuffix mat-icon-button aria-label="Add Task" (click)="addTask()">
-                    <mat-icon class="icon-2x green">add_box</mat-icon>
+                    <i class="fas fa-plus icon-2x green"></i>
                 </button>
             </mat-form-field>
         </div>
