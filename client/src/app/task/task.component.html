@@ -1,4 +1,5 @@
-<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
+<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [ngClass]="task.tiltClass">
+    <div class="pin" cdkDragHandle></div>
     <div class="card-control">
         <img class="color-picker-icon" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
         <mat-card-title>

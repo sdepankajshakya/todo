@@ -71,6 +71,12 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.adjustTextColor();
+    this.getRandomTilt();
+  }
+
+  getRandomTilt(): void {
+    const tilts = ['task-tilt-1', 'task-tilt-2', 'task-tilt-3', 'task-tilt-4'];
+    this.task.tiltClass = tilts[Math.floor(Math.random() * tilts.length)];
   }
 
   addSubtask() {

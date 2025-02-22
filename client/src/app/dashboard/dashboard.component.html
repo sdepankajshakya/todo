@@ -3,9 +3,9 @@
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div class="box" cdkDrag>
-                    <div class="cdk-drag-handle" cdkDragHandle>
+                    <!-- <div class="cdk-drag-handle" cdkDragHandle>
                         <img class="move-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
-                    </div>
+                    </div> -->
                     <app-task [task]="task" [board]="board" (getBoard)="getBoard()"></app-task>
                 </div>
             </div>

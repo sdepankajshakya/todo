@@ -143,3 +143,36 @@
   display: flex;
   justify-content: center;
 }
+
+.task-card {
+  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3); /* Makes it look lifted */
+  position: relative; /* Needed for pin */
+  transform: rotate(var(--random-tilt, -3deg)); /* Random tilt */
+  transition: transform 0.2s ease-in-out;
+  border-radius: 8px;
+}
+
+/* Random tilts */
+.task-tilt-1 { --random-tilt: -3deg; }
+.task-tilt-2 { --random-tilt: 2deg; }
+.task-tilt-3 { --random-tilt: -1.5deg; }
+.task-tilt-4 { --random-tilt: 1deg; }
+
+/* Sticky notes hover effect */
+.task-card:hover {
+  transform: rotate(var(--random-tilt, -3deg)) scale(1.02);
+}
+
+.pin {
+  cursor: move; /* Set the cursor to move when hovering over the pin */
+  position: absolute;
+  z-index: 1;
+  left: 50%; /* Center the pin horizontally */
+  top: -5px; /* Adjust the top position */
+  width: 16px;
+  height: 16px;
+  background: #1565C0;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%); /* To ensure it's centered */
+}
