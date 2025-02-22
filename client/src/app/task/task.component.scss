@@ -8,9 +8,9 @@
   align-items: center;
   box-sizing: border-box;
   background: white;
-  font-size: 14px;
+  font-size: 16px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -52,6 +52,15 @@
   max-width: 25rem;
   max-height: 20rem;
   overflow: auto;
+}
+
+.wrap-text {
+  outline: none;
+}
+
+.wrap-text {
+  border: 1px solid transparent; /* Default border is transparent */
+  outline: none; /* Remove default outline */
 }
 
 .card-control {
@@ -145,6 +154,5 @@
 
 .task-card {
   box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-  font-family: fantasy !important;
 }
 
