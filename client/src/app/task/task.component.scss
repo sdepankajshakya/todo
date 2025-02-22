@@ -49,10 +49,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.task-card {
-  box-shadow: 5px 5px 7px rgb(33 33 33 / 70%);
-}
-
 .subtasks-list {
   max-width: 25rem;
   max-height: 20rem;
@@ -134,6 +130,10 @@
   height: 22px !important;
 }
 
+::ng-deep .mat-card {
+  border-radius: 0;
+}
+
 ::ng-deep .mat-card-title {
   font-size: 20px;
   margin-bottom: 0;
@@ -145,26 +145,11 @@
 }
 
 .task-card {
-  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3); /* Makes it look lifted */
-  position: relative; /* Needed for pin */
-  transform: rotate(var(--random-tilt, -3deg)); /* Random tilt */
-  transition: transform 0.2s ease-in-out;
-  border-radius: 8px;
-}
-
-/* Random tilts */
-.task-tilt-1 { --random-tilt: -3deg; }
-.task-tilt-2 { --random-tilt: 2deg; }
-.task-tilt-3 { --random-tilt: -1.5deg; }
-.task-tilt-4 { --random-tilt: 1deg; }
-
-/* Sticky notes hover effect */
-.task-card:hover {
-  transform: rotate(var(--random-tilt, -3deg)) scale(1.02);
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
 }
 
 .pin {
-  cursor: move; /* Set the cursor to move when hovering over the pin */
+  cursor: move;
   position: absolute;
   z-index: 1;
   left: 50%; /* Center the pin horizontally */
@@ -174,5 +159,5 @@
   background: #1565C0;
   border-radius: 50%;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
-  transform: translateX(-50%); /* To ensure it's centered */
 }
+

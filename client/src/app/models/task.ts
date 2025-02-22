@@ -6,7 +6,6 @@ export interface Task {
   boardName: string;
   bgColor: string;
   isDark: boolean;
-  tiltClass?: string;
 }
 
 export interface Subtask {

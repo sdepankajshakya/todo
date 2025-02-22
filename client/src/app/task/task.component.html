@@ -1,4 +1,4 @@
-<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [ngClass]="task.tiltClass">
+<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
     <div class="pin" cdkDragHandle></div>
     <div class="card-control">
         <img class="color-picker-icon" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
@@ -22,9 +22,9 @@
     <mat-card-content class="subtasks-list">
         <div class="mg-r1" cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
             <div class="box" *ngFor="let subtask of task.subtasks" cdkDrag cdkDragLockAxis="y" [ngStyle]="{background: task.bgColor}">
-                <div class="cdk-drag-handle" cdkDragHandle>
+                <!-- <div class="cdk-drag-handle" cdkDragHandle>
                     <img class="move-updown-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
-                </div>
+                </div> -->
                 <mat-checkbox class="circular-checkbox" [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
                 <div class="wrap-text start-text pd-0" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
                 <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
