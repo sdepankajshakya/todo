@@ -2,7 +2,7 @@
     <div class="card-control">
         <img class="color-picker-icon" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
         <mat-card-title>
-            <div text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
+            <div class="wrap-text" text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
         </mat-card-title>
         <i class="fas fa-times delete-task font-icon" (click)="onDeleteTask()"></i>
     </div>
