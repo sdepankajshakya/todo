@@ -11,9 +11,12 @@ export class AppComponent {
 
   constructor(private swUpdate: SwUpdate) {
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.subscribe(() => {
-        console.log('New version available! Reloading...');
-        window.location.reload(); // Force refresh
+      this.swUpdate.versionUpdates.subscribe(event => {
+        if (event.type === 'VERSION_READY') {
+          if (confirm("New version available. Load new version?")) {
+            window.location.reload();
+          }
+        }
       });
     }
   }
