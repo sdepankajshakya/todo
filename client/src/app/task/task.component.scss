@@ -56,11 +56,13 @@
 
 .wrap-text {
   outline: none;
+  font-family: 'Indie Flower', cursive;
+  font-size: 22px;
 }
 
 .wrap-text {
-  border: 1px solid transparent; /* Default border is transparent */
-  outline: none; /* Remove default outline */
+  border: 1px solid transparent;
+  outline: none;
 }
 
 .card-control {
@@ -88,6 +90,11 @@
   width: 100%;
 }
 
+.task-card {
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  font-family: 'Indie Flower', cursive;
+}
+
 .task-header {
   display: block;
 }
@@ -112,6 +119,15 @@
 
 .dark-text {
   color: black;
+}
+
+::ng-deep .mat-form-field-infix {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .no-underline .mat-form-field-underline {
+  display: none !important;
 }
 
 ::ng-deep .mat-form-field-outline {
@@ -151,12 +167,13 @@
   margin-bottom: 0;
 }
 
+::ng-deep .mat-card-subtitle {
+  margin-bottom: 0;
+}
+
 ::ng-deep .mat-card-header-text {
   display: flex;
   justify-content: center;
-}
-
-.task-card {
-  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  // margin: 0;
 }
 

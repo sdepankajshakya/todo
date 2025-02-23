@@ -72,18 +72,21 @@
 }
 
 ::ng-deep .cdk-drag-preview {
-    box-shadow: none !important; /* Remove the shadow from the preview */
+    box-shadow: none !important;
+    /* Remove the shadow from the preview */
 }
 
 .pin {
     cursor: move;
     position: absolute;
     z-index: 1;
-    left: 50%; /* Center the pin horizontally */
-    top: -8px; /* Adjust the top position */
+    left: 50%;
+    /* Center the pin horizontally */
+    top: -8px;
+    /* Adjust the top position */
     width: 18px;
     height: 18px;
     background: #1565C0;
     border-radius: 50%;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
-  }
+}

@@ -6,17 +6,16 @@
         </mat-card-title>
         <i class="fas fa-times delete-task font-icon" (click)="onDeleteTask()"></i>
     </div>
-    <mat-card-header class="task-header">
-        <!-- <mat-card-title>
-            <div text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
-        </mat-card-title> -->
+    <!-- <mat-card-header class="task-header">
         <mat-card-subtitle class="task-subtitle">
-            <label [hidden]="task.dueDate" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">No due date</label>
-            <input [hidden]="!task.dueDate" matInput [matDatepicker]="picker" placeholder="Due date" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
-            <mat-datepicker-toggle matIconSuffix [for]="picker" [ngClass]="task.isDark ? 'light-text' : 'dark-text'"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-form-field class="no-underline">
+                <mat-label [hidden]="task.dueDate" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">No due date</mat-label>
+                <input [hidden]="!task.dueDate" matInput [matDatepicker]="picker" placeholder="Due date" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker" [ngClass]="task.isDark ? 'light-text' : 'dark-text'"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
         </mat-card-subtitle>
-    </mat-card-header>
+    </mat-card-header> -->
 
     <mat-card-content class="subtasks-list">
         <div class="box" *ngFor="let subtask of task.subtasks" [ngStyle]="{background: task.bgColor}">
@@ -25,7 +24,7 @@
             <i class="fas fa-trash-alt icon-delete" (click)="onDeleteSubtask(subtask)"></i>
         </div>
     </mat-card-content>
-    
+
     <mat-form-field class="form-field">
         <mat-label [ngClass]="task.isDark ? 'light-text' : 'dark-text'">Add subtask</mat-label>
         <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()">
