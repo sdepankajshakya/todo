@@ -5,8 +5,9 @@
         <span class="move-list-handle" cdkDragHandle title="Move list">
             <i class="fas fa-grip-lines"></i>
         </span>
-        <div class="wrap-text list-title" text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">
-            {{ task.name }}
+        <div class="wrap-text list-title">
+            <span *ngIf="!editingTaskName" (click)="editingTaskName = true" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" class="task-title-text">{{ task.name }}</span>
+            <input *ngIf="editingTaskName" class="task-title-input" [(ngModel)]="task.name" (blur)="editingTaskName = false; onTaskNameChange()" (keyup.enter)="editingTaskName = false; onTaskNameChange()" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" autofocus />
         </div>
         <div class="list-menu-wrapper">
             <button mat-icon-button [matMenuTriggerFor]="listMenu" class="list-menu-btn">
@@ -27,20 +28,19 @@
 
     <!-- Subtasks list -->
     <div class="subtasks-list">
-        <div class="subtask-card card-style" *ngFor="let subtask of task.subtasks" cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
+        <div class="subtask-card card-style" *ngFor="let subtask of task.subtasks; let j = index" cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
             <mat-checkbox class="circular-checkbox" [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-            <div class="wrap-text card-title" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">
-                {{ subtask.name }}
-            </div>
+            <span *ngIf="!editingSubtaskName[j]" (click)="editingSubtaskName[j] = true" [ngClass]="{'task-completed': subtask.isCompleted, 'light-text': task.isDark}" class="subtask-title-text">{{ subtask.name }}</span>
+            <input *ngIf="editingSubtaskName[j]" class="subtask-title-input" [(ngModel)]="subtask.name" (blur)="editingSubtaskName[j] = false; onTaskNameChange()" (keyup.enter)="editingSubtaskName[j] = false; onTaskNameChange()" [ngClass]="{'task-completed': subtask.isCompleted, 'light-text': task.isDark}" autofocus />
             <i class="fas fa-trash-alt icon-delete" (click)="onDeleteSubtask(subtask)"></i>
         </div>
     </div>
 
     <!-- Add subtask -->
     <div class="add-card-row">
-        <input class="add-card-input" type="text" placeholder="Add a card..." [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" />
-        <button class="add-card-btn" (click)="addSubtask()">
-            <i class="fas fa-circle-plus green font-icon"></i>
+        <input class="add-card-input" type="text" placeholder="Add a task..." [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" aria-label="Add a task" />
+        <button class="add-card-btn" (click)="addSubtask()" aria-label="Add task">
+            <i class="fas fa-plus"></i>
         </button>
     </div>
 </div>

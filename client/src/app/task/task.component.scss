@@ -1,7 +1,8 @@
 .task-list {
   display: flex;
   flex-direction: column;
-  background: #ebecf0; /* List background */
+  background: #ebecf0;
+  /* List background */
   border-radius: 6px;
   padding: 12px;
   margin-right: 12px;
@@ -42,9 +43,54 @@
   gap: 8px;
 }
 
+.task-title-field,
+.subtask-title-field {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  min-height: unset;
+}
+
+.task-title-field .mat-form-field-wrapper,
+.subtask-title-field .mat-form-field-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  height: 28px !important;
+}
+
+.task-title-field .mat-input-element,
+.subtask-title-field .mat-input-element {
+  font-size: 15px !important;
+  padding: 2px 4px !important;
+  height: 22px !important;
+  line-height: 1.1 !important;
+  min-height: 0 !important;
+}
+
+.task-title-field .mat-form-field-outline,
+.subtask-title-field .mat-form-field-outline {
+  border-radius: 4px;
+  min-height: 0 !important;
+}
+
+.task-title-field .mat-form-field-flex,
+.subtask-title-field .mat-form-field-flex {
+  min-height: 0 !important;
+  height: 22px !important;
+}
+
+// Remove label space
+.task-title-field .mat-form-field-label-wrapper,
+.subtask-title-field .mat-form-field-label-wrapper {
+  display: none !important;
+}
+
 .subtasks-list {
   display: flex;
   flex-direction: column;
+  gap: 6px;
   padding: 0 0 8px 0;
   overflow: visible;
   position: relative;
@@ -72,20 +118,20 @@
 
 .subtask-card {
   border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(9,30,66,.13);
-  padding: 10px 12px;
-  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(9, 30, 66, .13);
+  padding: 6px 8px;
+  margin-bottom: 0;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 38px;
+  gap: 8px;
+  min-height: 32px;
   border: none;
   transition: box-shadow 0.18s, background 0.18s;
   position: relative;
   cursor: grab;
+
   &:hover {
-    box-shadow: 0 4px 12px rgba(9,30,66,.18);
-    background: #f4f5f7;
+    box-shadow: 0 4px 12px rgba(9, 30, 66, .18);
   }
 }
 
@@ -101,6 +147,12 @@
   padding: 0 4px;
 }
 
+.subtask-title-field {
+  flex: 1 1 auto;
+  margin: 0;
+  min-width: 0;
+}
+
 .card-title {
   border-bottom: none !important;
   text-decoration: none !important;
@@ -109,26 +161,35 @@
 .add-card-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 6px;
   margin-top: 10px;
-  padding: 8px 4px 4px 4px;
-  background: #f4f5f7;
   border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(9,30,66,.08);
-  position: relative;
-  z-index: 1;
+  min-height: 40px;
 }
 
 .add-card-input {
-  flex: 1;
+  width: 100%;
+  max-width: none;
+  flex: 1 1 0%;
   border: none;
-  background: transparent;
+  background: #fff;
   outline: none;
   font-size: 15px;
-  padding: 6px 8px;
+  padding: 5px 10px;
   color: #172b4d;
   border-radius: 4px;
-  box-shadow: none;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, .04);
+  border: 1.5px solid #d2e4fc;
+  min-width: 0;
+  height: 32px;
+
+  &::placeholder {
+    color: #bfc4ce;
+    font-size: 14px;
+    opacity: 1;
+    font-style: normal;
+  }
 }
 
 .add-card-btn {
@@ -136,22 +197,28 @@
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 6px 8px; // smaller, icon-sized
-  font-size: 18px; // slightly larger for icon
+  padding: 0 8px;
+  font-size: 16px;
   min-width: 0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
-  transition: background 0.2s;
-  box-shadow: 0 1px 2px rgba(9,30,66,.08);
+  transition: background 0.2s, opacity 0.18s;
+  box-shadow: 0 1px 2px rgba(9, 30, 66, .08);
   position: relative;
   z-index: 2;
-  &:hover {
+  opacity: 1;
+
+  &:hover,
+  &:focus {
     background: #519839;
+  }
+
+  i {
+    font-size: 15px;
   }
 }
 
@@ -187,6 +254,7 @@
   user-select: none;
   transition: color 0.2s;
 }
+
 .move-list-handle:active {
   cursor: grabbing;
   color: #555;
@@ -195,7 +263,7 @@
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 8px;
-  box-shadow: 0 8px 24px 0 rgba(0,0,0,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.18), 0 1.5px 4px 0 rgba(0, 0, 0, 0.12);
   opacity: 0.95;
   background: #ebecf0;
   border: 1.5px solid #bfc4ce;
@@ -228,4 +296,68 @@
   opacity: 0.3;
   border: 2px dashed #1976d2;
   background: #e3f2fd;
+}
+
+.task-title-input,
+.subtask-title-input {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 2px 4px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  box-shadow: none;
+}
+
+.task-title-input:focus,
+.subtask-title-input:focus {
+  background: #f4f5f7;
+  border: 1px solid #bfc4ce;
+}
+
+.task-title-text,
+.subtask-title-text {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 2px 4px;
+  display: block;
+  width: 100%;
+  word-break: break-word;
+}
+
+.subtask-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+::ng-deep .circular-checkbox .mat-checkbox-background,
+::ng-deep .circular-checkbox .mat-checkbox-frame,
+::ng-deep .circular-checkbox .mat-checkbox-inner-container {
+  border-radius: 50% !important;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+}
+
+::ng-deep .circular-checkbox .mat-checkbox-checkmark {
+  left: 2px !important;
+  top: 2px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+::ng-deep .circular-checkbox .mat-checkbox-checkmark-path {
+  stroke-width: 2.2px !important;
+}
+
+.subtask-title-text.task-completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+  transition: color 0.2s, opacity 0.2s, text-decoration 0.2s;
 }

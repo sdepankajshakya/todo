@@ -74,13 +74,21 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   connectedDropLists: string[] = [];
   isDragging = false;
+  editingTaskName = false;
+  editingSubtaskName: boolean[] = [];
 
   ngOnInit(): void {
     this.adjustTextColor();
+
     // Setup connectedDropLists for all lists (tasks) on the board
     if (this.board && this.board.tasks) {
       this.connectedDropLists = this.board.tasks.map((t, i) => `subtasks-list-${i}`);
     }
+    this.editingSubtaskName = this.task.subtasks ? this.task.subtasks.map(() => false) : [];
+  }
+
+  ngOnChanges(): void {
+    this.editingSubtaskName = this.task.subtasks ? this.task.subtasks.map(() => false) : [];
   }
 
   addSubtask() {
@@ -275,10 +283,8 @@ export class TaskComponent implements OnInit, OnDestroy {
     // If the background color is dark, add the light-text class to it
     if (this.brightness == 'dark') {
       this.task.isDark = true;
-      // this.element.classList.add('light-text');
     } else {
       this.task.isDark = false;
-      // this.element.classList.add('dark-text');
     }
   }
 
