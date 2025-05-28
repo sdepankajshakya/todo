@@ -43,12 +43,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
   changeBoardColor: boolean = false;
   colorChangeSubscription: Subscription = new Subscription();
+  isTouchDevice = false;
 
   ngOnInit(): void {
     const params = this.activeRoute.snapshot.params;
     if (params && params.name) this.board.name = params.name;
 
     this.getBoard();
+
+    this.isTouchDevice =
+      ('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      window.matchMedia('(pointer: coarse)').matches;
   }
 
   getBoard() {

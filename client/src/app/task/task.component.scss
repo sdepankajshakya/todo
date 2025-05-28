@@ -45,7 +45,6 @@
 .subtasks-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   padding: 0 0 8px 0;
   overflow: visible;
   position: relative;
@@ -72,7 +71,6 @@
 }
 
 .subtask-card {
-  background: #fff;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(9,30,66,.13);
   padding: 10px 12px;

@@ -2,7 +2,7 @@
     <div class="cards-list" [ngStyle]="{background: board.bgColor}" cdkDropListGroup>
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div class="list-wrapper" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
-                <div class="box" cdkDrag>
+                <div class="box" cdkDrag [cdkDragDisabled]="isTouchDevice">
                     <app-task [task]="task" [board]="board" [taskIndex]="i" (getBoard)="getBoard()"></app-task>
                 </div>
             </div>
