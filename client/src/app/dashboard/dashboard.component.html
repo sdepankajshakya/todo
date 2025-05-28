@@ -1,10 +1,9 @@
 <section class="board" [ngStyle]="{background: board.bgColor}">
     <div class="cards-list" [ngStyle]="{background: board.bgColor}" cdkDropListGroup>
         <ng-container *ngFor="let task of board.tasks; let i=index">
-            <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
+            <div class="list-wrapper" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div class="box" cdkDrag>
-                    <div class="pin" cdkDragHandle></div>
-                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()"></app-task>
+                    <app-task [task]="task" [board]="board" [taskIndex]="i" (getBoard)="getBoard()"></app-task>
                 </div>
             </div>
         </ng-container>
@@ -17,9 +16,9 @@
         <!-- <img class="sort-icon" src="../../assets/icons/sort.png" (click)="sortByDate()"> -->
         <div class="add-task">
             <mat-form-field class="form-field">
-                <mat-label>Add a task card</mat-label>
-                <input matInput type="text" placeholder="name of task" [(ngModel)]="taskName" (keyup.enter)="addTask()">
-                <button matSuffix mat-icon-button aria-label="Add Task" (click)="addTask()">
+                <mat-label>Enter list title</mat-label>
+                <input matInput type="text" placeholder="Name of list" [(ngModel)]="taskName" (keyup.enter)="addTask()">
+                <button matSuffix mat-icon-button aria-label="Add List" (click)="addTask()">
                     <i class="fas fa-plus icon-2x green"></i>
                 </button>
             </mat-form-field>

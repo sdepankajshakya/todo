@@ -1,35 +1,46 @@
-<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
-    <div class="card-control">
-        <img class="color-picker-icon" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
-        <mat-card-title>
-            <div class="wrap-text" text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
-        </mat-card-title>
-        <i class="fas fa-times delete-task font-icon" (click)="onDeleteTask()"></i>
+<div class="task-list" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="onSubtaskDrop($event)" [cdkDropListConnectedTo]="connectedDropLists" [id]="'subtasks-list-' + taskIndex">
+    <div class="dropzone-overlay" *ngIf="isDragging"></div>
+    <!-- List header -->
+    <div class="list-header">
+        <span class="move-list-handle" cdkDragHandle title="Move list">
+            <i class="fas fa-grip-lines"></i>
+        </span>
+        <div class="wrap-text list-title" text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">
+            {{ task.name }}
+        </div>
+        <div class="list-menu-wrapper">
+            <button mat-icon-button [matMenuTriggerFor]="listMenu" class="list-menu-btn">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+            <mat-menu #listMenu="matMenu">
+                <button mat-menu-item (click)="openColorPalette(task)">
+                    <i class="fas fa-palette" style="margin-right: 10px;"></i>
+                    <span>Change color</span>
+                </button>
+                <button mat-menu-item (click)="onDeleteTask()">
+                    <i class="fas fa-trash-alt" style="margin-right: 10px;"></i>
+                    <span>Delete list</span>
+                </button>
+            </mat-menu>
+        </div>
     </div>
-    <!-- <mat-card-header class="task-header">
-        <mat-card-subtitle class="task-subtitle">
-            <mat-form-field class="no-underline">
-                <mat-label [hidden]="task.dueDate" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">No due date</mat-label>
-                <input [hidden]="!task.dueDate" matInput [matDatepicker]="picker" placeholder="Due date" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
-                <mat-datepicker-toggle matIconSuffix [for]="picker" [ngClass]="task.isDark ? 'light-text' : 'dark-text'"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </mat-card-subtitle>
-    </mat-card-header> -->
 
-    <mat-card-content class="subtasks-list">
-        <div class="box" *ngFor="let subtask of task.subtasks" [ngStyle]="{background: task.bgColor}">
+    <!-- Subtasks list -->
+    <div class="subtasks-list">
+        <div class="subtask-card card-style" *ngFor="let subtask of task.subtasks" cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
             <mat-checkbox class="circular-checkbox" [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-            <div class="wrap-text start-text pd-0" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
+            <div class="wrap-text card-title" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">
+                {{ subtask.name }}
+            </div>
             <i class="fas fa-trash-alt icon-delete" (click)="onDeleteSubtask(subtask)"></i>
         </div>
-    </mat-card-content>
+    </div>
 
-    <mat-form-field class="form-field">
-        <mat-label [ngClass]="task.isDark ? 'light-text' : 'dark-text'">Add subtask</mat-label>
-        <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()">
-        <button matSuffix mat-icon-button aria-label="Add Subtask" (click)="addSubtask()">
+    <!-- Add subtask -->
+    <div class="add-card-row">
+        <input class="add-card-input" type="text" placeholder="Add a card..." [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" />
+        <button class="add-card-btn" (click)="addSubtask()">
             <i class="fas fa-circle-plus green font-icon"></i>
         </button>
-    </mat-form-field>
-</mat-card>
+    </div>
+</div>

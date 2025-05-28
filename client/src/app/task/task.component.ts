@@ -24,6 +24,7 @@ import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
 import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
 import { NotificationService } from '../shared/services/notification.service';
+import { ColorUtilsService } from '../shared/services/color-utils.service';
 
 @Component({
   selector: 'app-task',
@@ -35,7 +36,8 @@ export class TaskComponent implements OnInit, OnDestroy {
     private taskService: TaskService,
     private sharedService: SharedService,
     private bottomSheet: MatBottomSheet,
-    private notifier: NotificationService
+    private notifier: NotificationService,
+    private colorUtilsService: ColorUtilsService
   ) {
     this.colorChangeSubscription = this.sharedService.$color.subscribe(
       (paint) => {
@@ -47,6 +49,7 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   @Input() task!: Task;
   @Input() board!: Board;
+  @Input() taskIndex!: number;
   @Output() getBoard: EventEmitter<Board> = new EventEmitter();
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   colorChangeSubscription: Subscription = new Subscription();
@@ -69,8 +72,15 @@ export class TaskComponent implements OnInit, OnDestroy {
   b: number = 0;
   hsp!: number;
 
+  connectedDropLists: string[] = [];
+  isDragging = false;
+
   ngOnInit(): void {
     this.adjustTextColor();
+    // Setup connectedDropLists for all lists (tasks) on the board
+    if (this.board && this.board.tasks) {
+      this.connectedDropLists = this.board.tasks.map((t, i) => `subtasks-list-${i}`);
+    }
   }
 
   addSubtask() {
@@ -164,8 +174,31 @@ export class TaskComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+      // Optionally, update the subtasks' taskName to match the new parent task
+      if (this.task && event.container.data) {
+        event.container.data[event.currentIndex].taskName = this.task.name;
+        // Persist the change if needed
+        this.updateSubtask(event.container.data[event.currentIndex]);
+      }
     }
+    // Optionally, persist the new order to the backend
+    this.updateTask();
   }
+
+  onSubtaskDrop(event: CdkDragDrop<Subtask[]>) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  this.updateBoard(); // Persist updated subtask order
+}
 
   updateBoard() {
     this.taskService.updateBoard(this.board).subscribe(
@@ -237,7 +270,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.bgColor = this.hexToRGB(this.task.bgColor);
 
     // Call lightOrDark function to get the brightness (light or dark)
-    this.brightness = this.lightOrDark(this.bgColor);
+    this.brightness = this.colorUtilsService.lightOrDark(this.bgColor);
 
     // If the background color is dark, add the light-text class to it
     if (this.brightness == 'dark') {
@@ -246,43 +279,6 @@ export class TaskComponent implements OnInit, OnDestroy {
     } else {
       this.task.isDark = false;
       // this.element.classList.add('dark-text');
-    }
-  }
-
-  lightOrDark(color: any) {
-    // Check the format of the color, HEX or RGB?
-    if (color.match(/^rgb/)) {
-      // If HEX --> store the red, green, blue values in separate variables
-      color = color.match(
-        /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
-      );
-
-      this.r = color[1];
-      this.g = color[2];
-      this.b = color[3];
-    } else {
-      // If RGB --> Convert it to HEX: http://gist.github.com/983661
-      color = +(
-        '0x' + color.slice(1).replace(color.length < 5 && /./g, '$&$&')
-      );
-
-      this.r = color >> 16;
-      this.g = (color >> 8) & 255;
-      this.b = color & 255;
-    }
-
-    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
-    this.hsp = Math.sqrt(
-      0.299 * (this.r * this.r) +
-        0.587 * (this.g * this.g) +
-        0.114 * (this.b * this.b)
-    );
-
-    // Using the HSP value, determine whether the color is light or dark
-    if (this.hsp > 127.5) {
-      return 'light';
-    } else {
-      return 'dark';
     }
   }
 
@@ -305,5 +301,13 @@ export class TaskComponent implements OnInit, OnDestroy {
     }
 
     return 'rgb(' + +r + ',' + +g + ',' + +b + ')';
+  }
+
+  onDragStarted() {
+    this.isDragging = true;
+  }
+
+  onDragEnded() {
+    this.isDragging = false;
   }
 }

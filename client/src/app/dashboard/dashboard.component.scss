@@ -6,20 +6,39 @@
 .cards-list {
     width: 100%;
     max-width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+    padding: 1.5rem 1rem 5rem 1rem;
+    align-items: stretch;
+    justify-items: stretch;
+    background: transparent;
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+.cards-list::-webkit-scrollbar {
+    height: 10px;
+    background: #f4f5f7;
+}
+.cards-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 6px;
 }
 
 .box {
-    position: relative;
-    text-align: center;
-    box-sizing: border-box;
-    margin: 0.5rem;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
 }
 
 .cdk-drag-handle {
@@ -76,17 +95,68 @@
     /* Remove the shadow from the preview */
 }
 
-.pin {
-    cursor: move;
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    /* Center the pin horizontally */
-    top: -8px;
-    /* Adjust the top position */
-    width: 18px;
-    height: 18px;
-    background: #1565C0;
-    border-radius: 50%;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+.cdk-drop-list {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.list-wrapper {
+    background: #ebecf0;
+    border-radius: 8px;
+    min-width: 340px;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: 0 1px 4px rgba(9,30,66,.13);
+    padding: 8px 4px 12px 4px;
+    margin: 0;
+    height: 100%;
+}
+
+// Overlay dropzone for the cards-list (lists)
+.cards-list .dropzone-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: 8px;
+  transition: background 0.2s, border 0.2s;
+}
+
+.cards-list.cdk-drop-list-dragging .dropzone-overlay {
+  background: #d2e4fc !important;
+  border: 2px dashed #1976d2;
+  pointer-events: auto;
+}
+
+// Ensure list drag preview and placeholder match the card dragbox style
+.box.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px 0 rgba(25, 118, 210, 0.18), 0 1.5px 4px 0 rgba(25, 118, 210, 0.12);
+  border: 2px solid #1976d2;
+  background: #e3f2fd;
+  opacity: 0.95;
+  transform: scale(1.03);
+}
+
+.box.cdk-drag-placeholder {
+  opacity: 0.3;
+  border: 2px dashed #1976d2;
+  background: #e3f2fd;
 }
