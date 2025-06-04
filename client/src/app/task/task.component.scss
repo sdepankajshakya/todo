@@ -361,3 +361,22 @@
   opacity: 0.7;
   transition: color 0.2s, opacity 0.2s, text-decoration 0.2s;
 }
+
+.subtask-link-row {
+  display: flex;
+  align-items: center;
+}
+
+.subtask-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #1976d2;
+}
+.subtask-link:hover, .subtask-link:focus {
+  text-decoration: underline;
+}
+
+.subtask-link-edit-area {
+  flex: 1;
+  height: 24px;
+}

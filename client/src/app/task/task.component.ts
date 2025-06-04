@@ -76,6 +76,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   isDragging = false;
   editingTaskName = false;
   editingSubtaskName: boolean[] = [];
+  hoveredEditArea: number | null = null;
 
   ngOnInit(): void {
     this.adjustTextColor();
@@ -315,5 +316,14 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   onDragEnded() {
     this.isDragging = false;
+  }
+
+  isValidUrl(str: string): boolean {
+    try {
+      new URL(str);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
