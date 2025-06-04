@@ -32,7 +32,7 @@
             <mat-checkbox class="circular-checkbox" [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
             <span *ngIf="!editingSubtaskName[j] && !isValidUrl(subtask.name)" (click)="editingSubtaskName[j] = true" [ngClass]="{'task-completed': subtask.isCompleted, 'light-text': task.isDark}" class="subtask-title-text">{{ subtask.name }}</span>
             <span *ngIf="!editingSubtaskName[j] && isValidUrl(subtask.name)" class="subtask-title-text subtask-link-row" [ngClass]="{'task-completed': subtask.isCompleted, 'light-text': task.isDark}">
-                <a [href]="subtask.name" target="_blank" rel="noopener" class="subtask-link">{{ subtask.name }}</a>
+                <a [href]="subtask.name" target="_blank" rel="noopener" class="subtask-link">{{ getUrlLabel(subtask.name) }}</a>
                 <span class="subtask-link-edit-area" (click)="editingSubtaskName[j] = true" title="Edit subtask"></span>
             </span>
             <input *ngIf="editingSubtaskName[j]" class="subtask-title-input" [(ngModel)]="subtask.name" (blur)="editingSubtaskName[j] = false; onTaskNameChange()" (keyup.enter)="editingSubtaskName[j] = false; onTaskNameChange()" [ngClass]="{'task-completed': subtask.isCompleted, 'light-text': task.isDark}" autofocus />

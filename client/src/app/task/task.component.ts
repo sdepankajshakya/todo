@@ -326,4 +326,18 @@ export class TaskComponent implements OnInit, OnDestroy {
       return false;
     }
   }
+
+  getUrlLabel(url: string): string {
+    try {
+      const { hostname, pathname } = new URL(url);
+      // Example: github.com/user/repo -> 'github.com: user/repo'
+      let label = hostname.replace(/^www\./, '');
+      if (pathname && pathname !== '/') {
+        label += ': ' + pathname.replace(/^\//, '');
+      }
+      return label;
+    } catch {
+      return url;
+    }
+  }
 }
